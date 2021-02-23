@@ -1,9 +1,4 @@
---[[
-	code generated using luamin.js, Herrtt#3868
---]]
-
-
-for i, v in pairs(game.CoreGui:GetChildren()) do
+for _, v in pairs(game.CoreGui:GetChildren()) do
 	if v.Name == "CoastifiedLibrary" then
 		v:Destroy()
 	end
