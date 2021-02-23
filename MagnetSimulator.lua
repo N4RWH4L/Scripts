@@ -1571,41 +1571,7 @@ a:CreateToggle("Auto Rebirth", function(v)
 end)
 
 a:CreateDropdown("Rebirth Amount", {"1", "5", "25", "50", "100", "250", "500", "1000", "2500", "5000", "10000", "25000", "50000", "75000", "100000", "125000", "200000"}, 2, function(v)
-    if v == "1" then
-        Rebirth = 1
-    elseif v == "5" then
-        Rebirth = 5
-    elseif v == "25" then
-        Rebirth = 25
-    elseif v == "50" then
-        Rebirth = 50
-    elseif v == "100" then
-        Rebirth = 100
-    elseif v == "250" then
-        Rebirth = 250
-    elseif v == "500" then
-        Rebirth = 500
-    elseif v == "1000" then
-        Rebirth = 1000
-    elseif v == "2500" then
-        Rebirth = 2500
-    elseif v == "5000" then
-        Rebirth = 5000
-    elseif v == "10000" then
-        Rebirth = 10000
-    elseif v == "25000" then
-        Rebirth = 25000
-    elseif v == "50000" then
-        Rebirth = 50000
-    elseif v == "75000" then
-        Rebirth = 75000
-    elseif v == "100000" then
-        Rebirth = 100000
-    elseif v == "125000" then
-        Rebirth = 125000
-    elseif v == "200000" then
-        Rebirth = 200000
-    end
+    Rebirth = tonumber(v)
 end)
 
 b:CreateToggle("Active", function(v)
