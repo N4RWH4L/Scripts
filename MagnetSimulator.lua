@@ -1540,6 +1540,14 @@ function Library:NewWindow(name)
     return Sections
 end
 
+local AutoCoin
+local AutoSell
+local AutoRebirth
+local Rebirth
+local WalkJump
+local walkspeed
+local jumppower
+
 local Window = Library:NewWindow("Magnet Simulator")
  
 local a = Window:NewSection("Farming")
