@@ -1534,14 +1534,6 @@ function Library:NewWindow(name)
 	return Sections
 end
 
-local AutoCoin
-local AutoSell
-local AutoRebirth
-local Rebirth
-local WalkJump
-local walkspeed
-local jumppower
-
 local Window = Library:NewWindow("Magnet Simulator")
  
 local a = Window:NewSection("Farming")
@@ -1551,94 +1543,151 @@ local sell = "sell2"
 local walkspeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 local jumppower = game.Players.LocalPlayer.Character.Humanoid.JumpPower
 local Rebirth = 1
+local waittime = .05
  
 a:CreateToggle("Auto Coin", function(v)
-	AutoCoin = v
+    AutoCoin = v
+end)
+
+a:CreateToggle("Auto Clover", function(v)
+    AutoClover = v
 end)
 
 a:CreateToggle("Auto Sell", function(v)
-	AutoSell = v
+    AutoSell = v
 end)
 
-a:CreateDropdown("Auto Sell Area", {
-	"Spawn",
-	"2x Coin"
-}, 2, function(v)
-	if v == "Spawn" then
-		sell = "sell1"
-	elseif v == "2x Coin" then
-		sell = "sell2"
-	end
+a:CreateTextbox("Wait Time", function(v)
+    waittime = v 
+end)
+
+a:CreateDropdown("Auto Sell Area", {"Spawn", "Rebirth"}, 2, function(v)
+    if v == "Spawn" then
+        sell = "sell1"
+    elseif v == "Rebirth" then
+        sell = "sell2"
+    end
 end)
 
 a:CreateToggle("Auto Rebirth", function(v)
-	AutoRebirth = v
+    AutoRebirth = v
 end)
 
-a:CreateDropdown("Rebirth Amount", {"1","5","25","50","100","250","500","1000","2500","5000","10000","25000","50000","75000","100000","125000","200000"}, 2, function(v)
-	Rebirth = tonumber(v)
+a:CreateDropdown("Rebirth Amount", {"1", "5", "25", "50", "100", "250", "500", "1000", "2500", "5000", "10000", "25000", "50000", "75000", "100000", "125000", "200000"}, 2, function(v)
+    Rebirth = tonumber(v)
+    if v == "1" then
+        Rebirth = 1
+    elseif v == "5" then
+        Rebirth = 5
+    elseif v == "25" then
+        Rebirth = 25
+    elseif v == "50" then
+        Rebirth = 50
+    elseif v == "100" then
+        Rebirth = 100
+    elseif v == "250" then
+        Rebirth = 250
+    elseif v == "500" then
+        Rebirth = 500
+    elseif v == "1000" then
+        Rebirth = 1000
+    elseif v == "2500" then
+        Rebirth = 2500
+    elseif v == "5000" then
+        Rebirth = 5000
+    elseif v == "10000" then
+        Rebirth = 10000
+    elseif v == "25000" then
+        Rebirth = 25000
+    elseif v == "50000" then
+        Rebirth = 50000
+    elseif v == "75000" then
+        Rebirth = 75000
+    elseif v == "100000" then
+        Rebirth = 100000
+    elseif v == "125000" then
+        Rebirth = 125000
+    elseif v == "200000" then
+        Rebirth = 200000
+    end
 end)
 
 b:CreateToggle("Active", function(v)
-	WalkJump = v 
+    WalkJump = v 
 end)
  
 b:CreateSlider("Walkspeed", 16, 1000, game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, false, function(v)
-	walkspeed = v
+    walkspeed = v
 end)
  
 b:CreateSlider("JumpPower", 50, 1000, game.Players.LocalPlayer.Character.Humanoid.JumpPower, false, function(v)
-	jumppower = v
+    jumppower = v
 end)
 
 c:CreateButton("Disable Notifications", function()
-	game:GetService("Players").LocalPlayer.PlayerGui.GameHUD.FullBackpack:Destroy() 
+    game:GetService("Players").LocalPlayer.PlayerGui.GameHUD.FullBackpack:Destroy() 
 end)
 
 spawn(function()
-	while wait() do
-		if AutoCoin then
-			local args = {
-				[1] = "50000000",
-				[2] = game:GetService("ReplicatedStorage").Tools["Frosty Tri-Magnet"]
-			}
-			game:GetService("ReplicatedStorage").Events.MagnetEvents.requestGrab:FireServer(unpack(args))
-			wait()
-		end
-	end
+    while wait() do
+        if AutoCoin then
+            local args = {
+                [1] = "6080000000",
+                [2] = game:GetService("ReplicatedStorage").Tools["Lucky Long Tri-Magnet"]
+            }
+            
+            game:GetService("ReplicatedStorage").Events.MagnetEvents.requestGrab:FireServer(unpack(args))
+            wait()
+        end
+    end
 end)
 
 spawn(function()
-	while wait() do
-		if AutoSell then
-			if sell == "sell2" then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-419.514709, 5.21380043, -849.897949) + Vector3.new(1, 1, 0)
-				wait(.05)
-			elseif sell == "sell1" then
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(133.744507, 14.6463766, -52.6264954) + Vector3.new(1, 1, 0)
-				wait(.05)
-			end
-		end
-	end
+    while wait() do
+        if AutoSell then
+            if sell == "sell2" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-419.514709, 5.21380043, -849.897949) + Vector3.new(1,1,0)
+                wait(waittime)
+            elseif sell == "sell1" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(133.744507, 14.6463766, -52.6264954) + Vector3.new(1,1,0)
+                wait(waittime)
+            end
+        end
+    end
 end)
 
 spawn(function()
-	while wait() do
-		if WalkJump then
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkspeed
-			game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumppower
-		end
-	end
+    while wait() do
+        if WalkJump then
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = walkspeed
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumppower
+        end
+    end
 end)
 
 spawn(function()
-	while wait() do
-		if AutoRebirth then
-			local args = {
-				[1] = Rebirth
-			}
-			game:GetService("ReplicatedStorage").RebirthEvents.requestRebirth:InvokeServer(unpack(args))
-			wait()
-		end
-	end
+    while wait() do
+        if AutoRebirth then
+            local args = {
+                [1] = Rebirth
+            }
+            
+            game:GetService("ReplicatedStorage").RebirthEvents.requestRebirth:InvokeServer(unpack(args))
+            wait()
+        end
+    end
+end)
+
+spawn(function()
+    while wait() do
+        if AutoClover then
+        local args = {
+            [1] = "Clover1",
+            [2] = game.ReplicatedStorage.Tools['Lucky Long Tri-Magnet']
+        }
+
+        game:GetService("ReplicatedStorage").Events.MagnetEvents.requestGrab:FireServer(unpack(args))
+        wait()
+        end
+    end
 end)
