@@ -1535,12 +1535,14 @@ function Library:NewWindow(name)
 end
 
 local AutoCoin
+local AutoClover
 local AutoSell
 local AutoRebirth
 local Rebirth
 local WalkJump
 local walkspeed
 local jumppower
+local waittime = .05
 
 local Window = Library:NewWindow("Magnet Simulator")
  
@@ -1556,8 +1558,16 @@ a:CreateToggle("Auto Coin", function(v)
 	AutoCoin = v
 end)
 
+a:CreateToggle("Auto Clover", function(v)
+    AutoClover = v
+end)
+
 a:CreateToggle("Auto Sell", function(v)
 	AutoSell = v
+end)
+
+a:CreateTextbox("Wait Time", function(v)
+    waittime = v 
 end)
 
 a:CreateDropdown("Auto Sell Area", {
@@ -1599,8 +1609,8 @@ spawn(function()
 	while wait() do
 		if AutoCoin then
 			local args = {
-				[1] = "50000000",
-				[2] = game:GetService("ReplicatedStorage").Tools["Frosty Tri-Magnet"]
+                [1] = "6080000000",
+                [2] = game:GetService("ReplicatedStorage").Tools["Lucky Long Tri-Magnet"]
 			}
 			game:GetService("ReplicatedStorage").Events.MagnetEvents.requestGrab:FireServer(unpack(args))
 			wait()
@@ -1613,10 +1623,10 @@ spawn(function()
 		if AutoSell then
 			if sell == "sell2" then
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-419.514709, 5.21380043, -849.897949) + Vector3.new(1, 1, 0)
-				wait(.05)
+				wait(waittime)
 			elseif sell == "sell1" then
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(133.744507, 14.6463766, -52.6264954) + Vector3.new(1, 1, 0)
-				wait(.05)
+				wait(waittime)
 			end
 		end
 	end
@@ -1641,4 +1651,18 @@ spawn(function()
 			wait()
 		end
 	end
+end)
+
+spawn(function()
+    while wait() do
+        if AutoClover then
+        local args = {
+            [1] = "Clover1",
+            [2] = game.ReplicatedStorage.Tools['Lucky Long Tri-Magnet']
+        }
+
+        game:GetService("ReplicatedStorage").Events.MagnetEvents.requestGrab:FireServer(unpack(args))
+        wait()
+        end
+    end
 end)
