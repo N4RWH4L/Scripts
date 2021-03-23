@@ -3,8 +3,8 @@ assert((setreadonly or make_writeable), "Your exploit doesn't support setreadonl
 assert((getnamecallmethod or get_namecall_method), "Your exploit doesn't support getnamecallmethod or get_namecall_method")
 assert(getrawmetatable, "Your exploit doesn't support getrawmetatable")
 
---print table function I stole from google
-local function print_table(node)
+--get table function I stole from google
+local function get_table(node)
     local cache, stack, output = {},{},{}
     local depth = 1
     local output_str = "{\n"
@@ -92,13 +92,13 @@ local function log(Method, Event, Args, color)
     rconsoleprint(("Event: %s\n"):format(tostring(Event)))
     rconsoleprint(("Path %s\n"):format(tostring(Event:GetFullName())))
     if #Args ~= 0 then
-        rconsoleprint(("Args: %s\n"):format(#Args ~= 0 and print_table(Args)))
+        rconsoleprint(("Args: %s\n"):format(get_table(Args)))
     end
     rconsoleprint(("Script:\n"))
     if  #Args == 0 then
         rconsoleprint(("game.%s:%s()\n\n\n"):format(Event:GetFullName(), Method))
     else
-        rconsoleprint(("game.%s:%s(unpack(%s))\n\n\n"):format(Event:GetFullName(), Method, print_table(Args)))
+        rconsoleprint(("game.%s:%s(unpack(%s))\n\n\n"):format(Event:GetFullName(), Method, get_table(Args)))
     end
     
 end
