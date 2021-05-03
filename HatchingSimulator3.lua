@@ -32,12 +32,17 @@ Eggs:AddList({
 })
 
 Eggs:AddToggle({
+    text = "Hatch 3",
+    flag = "Hatch3"
+})
+
+Eggs:AddToggle({
     text = "Auto Open Egg",
     flag = "AutoOpen",
 }) spawn(function()
-    while wait(1) do
+    while wait() do
         if Library.flags.AutoOpen then
-            game:GetService("ReplicatedStorage").KeyBind:InvokeServer("plsnohackplsnoooooob", game:GetService("Players").LocalPlayer, Library.flags.Egg, false, "", "", "", "", "", "")
+            game:GetService("ReplicatedStorage").KeyBind:InvokeServer("plsnohackplsnoooooob", game:GetService("Players").LocalPlayer, Library.flags.Egg, Library.flags.Hatch3, "", "", "", "", "", "")
         end
     end
 end)
@@ -45,7 +50,7 @@ end)
 Eggs:AddButton({
     text = "Open Egg",
     callback = function()
-        game:GetService("ReplicatedStorage").KeyBind:InvokeServer("plsnohackplsnoooooob", game:GetService("Players").LocalPlayer, Library.flags.Egg, false, "", "", "", "", "", "")
+        game:GetService("ReplicatedStorage").KeyBind:InvokeServer("plsnohackplsnoooooob", game:GetService("Players").LocalPlayer, Library.flags.Egg, Library.flags.Hatch3, "", "", "", "", "", "")
     end
 })
 
