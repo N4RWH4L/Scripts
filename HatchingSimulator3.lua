@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet("https://github.com/N4RWH4L/Scripts/raw/main/Uwuware.lua", true))()
 
-local Win = Library:CreateWindow("Auto Hatch")
+local Win = Library:CreateWindow("Hatching Simulator 3")
 
 Win:AddToggle({
     text = "Auto Coin",
