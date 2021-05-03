@@ -2,9 +2,7 @@ local Library = loadstring(game:HttpGet("https://github.com/N4RWH4L/Scripts/raw/
 
 local Win = Library:CreateWindow("Auto Hatch")
 
-local Main = Win:AddFolder("Main")
-
-Main:AddToggle({
+Win:AddToggle({
     text = "Auto Coin",
     flag = "AutoCoin"
 }) spawn(function()
@@ -18,6 +16,7 @@ Main:AddToggle({
     end
 end)
 
+local Eggs = Win:AddFolder("Eggs")
 local eggs = {}
 
 for _, v in pairs(game:GetService("Workspace").Eggs:GetChildren()) do
@@ -26,13 +25,13 @@ for _, v in pairs(game:GetService("Workspace").Eggs:GetChildren()) do
     end
 end
 
-Main:AddList({
+Eggs:AddList({
     text = "Egg",
     flag = "Egg",
     values = eggs
 })
 
-Main:AddToggle({
+Eggs:AddToggle({
     text = "Auto Open Egg",
     flag = "AutoOpen",
 }) spawn(function()
@@ -43,22 +42,20 @@ Main:AddToggle({
     end
 end)
 
-Main:AddButton({
+Eggs:AddButton({
     text = "Open Egg",
     callback = function()
         game:GetService("ReplicatedStorage").KeyBind:InvokeServer("plsnohackplsnoooooob", game:GetService("Players").LocalPlayer, Library.flags.Egg, false, "", "", "", "", "", "")
     end
 })
 
-Win:AddLabel({
-    text = "Credits"
-})
+local Credits = Win:AddFolder("Credits")
 
-Win:AddLabel({
+Credits:AddLabel({
     text = "Script - Narwhal#0187"
 })
 
-Win:AddLabel({
+Credits:AddLabel({
     text = "UI - Jan"
 })
 
