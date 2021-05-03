@@ -1,5 +1,3 @@
---https://gist.githubusercontent.com/N4RWH4L/00babeb1f70d74817f25990d5fc8a9ca/raw/4c24135c572df5864195f8273b2be8cca53e5e1c/Uwuware.lua
-
 local library = {flags = {}, windows = {}, open = true, objects={toggles={}}}
 
 function InstanceNew(inst, props)
