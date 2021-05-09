@@ -9,6 +9,23 @@ local function getTank()
     return tank
 end
 
+game:GetService("Workspace").Tanks.ChildAdded:Connect(function(v)
+    if v.Name == "Tank-"..game.Players.LocalPlayer.Name then
+        v:WaitForChild("Settings").MoveSpeed.Value = Library.flags.MovementSpeed
+        v.Settings.RotationSpeed.Value = Library.flags.RotationSpeed
+        v.Settings.MaxFireRate.Value = Library.flags.Firerate
+        if Library.flags.InfiniteAmmo then
+            v.Settings.LoadedShots.Value = 9999
+        end
+        if Library.flags.InstantReload then
+            v.Settings.ReloadTime.Value = 0
+        end
+        if Library.flags.InfiniteAbilities then
+            v.Settings.AbilityCooldown.Value = 0
+        end
+    end
+end)
+
 local Main = Library:CreateWindow("Tiny Tanks")
 
 do
@@ -38,62 +55,52 @@ do
         flag = "MovementSpeed",
         min = 1,
         max = 100,
-        value = 20
-    }) spawn(function()
-        while wait() do
+        value = 20,
+        callback = function()
             getTank().Settings.MoveSpeed.Value = Library.flags.MovementSpeed
-            wait(1)
         end
-    end)
+    })
 
     TankMods:AddSlider({
         text = "Rotation Speed",
         flag = "RotationSpeed",
         min = 1,
         max = 1000,
-        value = 200
-    }) spawn(function()
-        while wait() do
+        value = 200,
+        callback = function()
             getTank().Settings.RotationSpeed.Value = Library.flags.RotationSpeed
-            wait(1)
         end
-    end)
+    })
 
     TankMods:AddToggle({
         text = "Infinite Ammo",
-        flag = "InfiniteAmmo"
-    }) spawn(function()
-        while wait() do
+        flag = "InfiniteAmmo",
+        callback = function()
             if Library.flags.InfiniteAmmo then
-                getTank().Settings.LoadedShots.Value = 1000
-                wait(1)
+                getTank().Settings.LoadedShots.Value = 9999
             end
         end
-    end)
+    })
 
     TankMods:AddToggle({
         text = "Instant Reload",
-        flag = "InstantReload"
-    }) spawn(function()
-        while wait() do
+        flag = "InstantReload",
+        callback = function()
             if Library.flags.InstantReload then
                 getTank().Settings.ReloadTime.Value = 0
-                wait(1)
             end
         end
-    end)
+    })
     
     TankMods:AddToggle({
         text = "Infinite Abilities",
-        flag = "InfiniteAbilities"
-    }) spawn(function()
-        while wait() do
+        flag = "InfiniteAbilities",
+        callback = function()
             if Library.flags.InfiniteAbilities then
                 getTank().Settings.AbilityCooldown.Value = 0
-                wait(1)
             end
         end
-    end)
+    })
 
     TankMods:AddSlider({
         text = "Firerate",
@@ -102,12 +109,10 @@ do
         max = 1,
         value = 0.2,
         float = 0.01,
-    }) spawn(function()
-        while wait() do
+        callback = function()
             getTank().Settings.MaxFireRate.Value = Library.flags.Firerate
-            wait(1)
         end
-    end)
+    })
 end
 
 do
