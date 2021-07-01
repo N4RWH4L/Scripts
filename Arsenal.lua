@@ -3,6 +3,9 @@ local fov = 100
 local circle = true
 
 --Script
+assert(hookmetamethod, "Your exploit isn't supported")
+assert(getnamecallmethod or get_namecall_method, "Your exploit isn't supported")
+
 local plr = game:GetService("Players").LocalPlayer
 local currentCamera = game:GetService("Workspace").CurrentCamera
 local mouse = plr:GetMouse()
@@ -43,19 +46,12 @@ local function getPlr()
 	return bestPlr or nil
 end
 
-local meta = getrawmetatable(game)
-local old = meta.__namecall
-if setreadonly then
-	setreadonly(meta, false)
-else
-	make_writeable(meta, true)
-end
 local callMethod = getnamecallmethod or get_namecall_method
 local newClosure = newcclosure or function(f)
 	return f
 end
-
-meta.__namecall = newClosure(function(...)
+local old
+old = hookmetamethod(game, "__namecall", newClosure(function(...)
 	local isEvent = tostring(callMethod()) == "FireServer"
 	local arguments = {...}
 
@@ -67,10 +63,4 @@ meta.__namecall = newClosure(function(...)
 	end
 
 	return old(...)
-end)
-
-if setreadonly then
-	setreadonly(meta, true)
-else
-	make_writeable(meta, false)
-end
+end))
