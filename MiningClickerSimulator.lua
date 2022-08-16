@@ -198,7 +198,6 @@ do -- Pets Section
             function()
                 while task.wait(1) do
                     if Library.flags.AutoEquipBestPets and getBestPetValue() > getCurrentPetValue() then
-                        print("Best: " .. getBestPetValue() .. "\nCurrent: " .. getCurrentPetValue())
                         firesignal(inventoryUI.equipBest.TextButton.Activated)
                     end
                 end
