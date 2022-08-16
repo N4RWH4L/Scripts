@@ -313,12 +313,26 @@ end
 do -- Teleport Section
     local Teleports = Main:AddFolder("Teleports")
 
-    for _, v in pairs(game:GetService("Workspace").TeleportBricks:GetChildren()) do
+    local locations = {
+        ["Jungle"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -5128.49951171875),
+        ["Ocean"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -5335.19970703125),
+        ["Cave"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -5548.099609375),
+        ["Undead Forest"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -4439.89990234375),
+        ["Heaven"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -4225.89990234375),
+        ["Hell Dungeon"] = CFrame.new(-1489.67138671875, -3.5009765625, -4114.95849609375),
+        ["Spawn"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -6154.2998046875),
+        ["Space"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -4678.19970703125),
+        ["Volcano"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -4906.99951171875),
+        ["Desert"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -5976.599609375),
+        ["Snow"] = CFrame.new(-1488.9998779296875, 52.194122314453125, -5765.8994140625)
+    }
+
+    for i, v in pairs(locations) do
         Teleports:AddButton(
             {
-                text = v.Name,
+                text = i,
                 callback = function()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v
                 end
             }
         )
