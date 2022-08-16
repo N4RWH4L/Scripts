@@ -273,6 +273,7 @@ do -- Pets Section
         end
     )
 
+    -- This code could be more modular but I don't care
     Pets:AddToggle(
         {
             text = "Auto Craft Goldens",
@@ -308,6 +309,174 @@ do -- Pets Section
             end
         end
     )
+
+    Pets:AddToggle(
+        {
+            text = "Auto Craft Diamonds",
+            flag = "AutoCraftDiamonds"
+        }
+    )
+    task.spawn(
+        function()
+            while task.wait(1) do
+                if Library.flags.AutoCraftDiamonds then
+                    local petCounts = {}
+
+                    interatePets(
+                        function(i, v)
+                            if getPetType(v.main.ring) == "Golden" then
+                                local name = v.ViewportFrame:FindFirstChildWhichIsA("Model").Name
+
+                                if petCounts[name] then
+                                    petCounts[name] = petCounts[name] + 1
+                                else
+                                    petCounts[name] = 1
+                                end
+                            end
+                        end
+                    )
+
+                    for i, v in pairs(petCounts) do
+                        if v >= 3 then
+                            game:GetService("ReplicatedStorage").Remotes.CraftToGold:FireServer(i, "Golden")
+                        end
+                    end
+                end
+            end
+        end
+    )
+
+    Pets:AddToggle(
+        {
+            text = "Auto Craft Emeralds",
+            flag = "AutoCraftEmeralds"
+        }
+    )
+    task.spawn(
+        function()
+            while task.wait(1) do
+                if Library.flags.AutoCraftEmeralds then
+                    local petCounts = {}
+
+                    interatePets(
+                        function(i, v)
+                            if getPetType(v.main.ring) == "Diamond" then
+                                local name = v.ViewportFrame:FindFirstChildWhichIsA("Model").Name
+
+                                if petCounts[name] then
+                                    petCounts[name] = petCounts[name] + 1
+                                else
+                                    petCounts[name] = 1
+                                end
+                            end
+                        end
+                    )
+
+                    for i, v in pairs(petCounts) do
+                        if v >= 3 then
+                            game:GetService("ReplicatedStorage").Remotes.CraftToGold:FireServer(i, "Diamond")
+                        end
+                    end
+                end
+            end
+        end
+    )
+
+    Pets:AddToggle(
+        {
+            text = "Auto Craft Darkmatters",
+            flag = "AutoCraftDarkmatters"
+        }
+    )
+    task.spawn(
+        function()
+            while task.wait(1) do
+                if Library.flags.AutoCraftDarkmatters then
+                    local petCounts = {}
+
+                    interatePets(
+                        function(i, v)
+                            if getPetType(v.main.ring) == "Emerald" then
+                                local name = v.ViewportFrame:FindFirstChildWhichIsA("Model").Name
+
+                                if petCounts[name] then
+                                    petCounts[name] = petCounts[name] + 1
+                                else
+                                    petCounts[name] = 1
+                                end
+                            end
+                        end
+                    )
+
+                    for i, v in pairs(petCounts) do
+                        if v >= 3 then
+                            game:GetService("ReplicatedStorage").Remotes.CraftToGold:FireServer(i, "Emerald")
+                        end
+                    end
+                end
+            end
+        end
+    )
+
+    Pets:AddToggle(
+        {
+            text = "Auto Craft Sunfires",
+            flag = "AutoCraftSunfires"
+        }
+    )
+    task.spawn(
+        function()
+            while task.wait(1) do
+                if Library.flags.AutoCraftSunfires then
+                    local petCounts = {}
+
+                    interatePets(
+                        function(i, v)
+                            if getPetType(v.main.ring) == "Darkmatter" then
+                                local name = v.ViewportFrame:FindFirstChildWhichIsA("Model").Name
+
+                                if petCounts[name] then
+                                    petCounts[name] = petCounts[name] + 1
+                                else
+                                    petCounts[name] = 1
+                                end
+                            end
+                        end
+                    )
+
+                    for i, v in pairs(petCounts) do
+                        if v >= 3 then
+                            game:GetService("ReplicatedStorage").Remotes.CraftToGold:FireServer(i, "Darkmatter")
+                        end
+                    end
+                end
+            end
+        end
+    )
+end
+
+do -- Upgrades Section
+    local Upgrades = Main:AddFolder("Upgrades")
+
+    for _, v in pairs(playerGui.plrUpgrades.upgradePlrView.a1.ScrollingFrame:GetChildren()) do
+        if v:FindFirstChild("template") then
+            Upgrades:AddToggle(
+                {
+                    text = "Upgrade " .. v.Name,
+                    flag = "Upgrade" .. v.Name
+                }
+            )
+            task.spawn(
+                function()
+                    while task.wait(1) do
+                        if Library.flags["Upgrade" .. v.Name] then
+                            game:GetService("ReplicatedStorage").Remotes.upgradePlr:FireServer(v.Name)
+                        end
+                    end
+                end
+            )
+        end
+    end
 end
 
 do -- Teleport Section
